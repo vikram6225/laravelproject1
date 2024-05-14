@@ -23,7 +23,7 @@ class StateResource extends Resource
 
     
 
-    protected static ?string $modelLabel = 'states';
+    protected static ?string $modelLabel = 'state';
 
     protected static ?string $navigationGroup = 'system management';
 
@@ -32,9 +32,19 @@ class StateResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                //
-            ]);
+           
+                
+                ->schema([ Forms\Components\select::make('country_id')
+                ->relationship(name: 'country',titleAttribute:'name')
+                ->searchable()
+                ->preload()
+               ->required(),
+              
+               Forms\Components\TextInput::make('state_name ')
+               ->required()
+               ->maxLength(255),
+               ])->columns(2);
+                
     }
 
     public static function table(Table $table): Table

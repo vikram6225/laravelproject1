@@ -32,13 +32,27 @@ class CountryResource extends Resource
 
     
 
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                //
-            ]);
-    }
+   public static function form(Form $form): Form
+   {
+       return $form
+          
+                   ->schema([
+                       Forms\Components\select::make('name')
+                           
+                           ->required()
+                           ->maxLength(255), 
+                           Forms\Components\select::make('code')
+                           ->required()
+                           ->maxLength(3), 
+                           Forms\Components\select::make('phonecode') 
+                           ->required()
+                           ->maxLength(255)
+                           ->numeric(), 
+                         
+                          
+                   ])->columns(3);
+      
+   }
 
     public static function table(Table $table): Table
     {

@@ -31,8 +31,18 @@ class DepartmentResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Section::make('Departments')
+                ->description('put the Department details name in.')
+                ->schema([ Forms\Components\select::make('Department_id')
+               ->required(),
+              
+            
+              Forms\Components\TextInput::make('Department_name')
+               ->required()
+               ->maxLength(255),
+               ])->columns(3)
             ]);
+          
     }
 
     public static function table(Table $table): Table

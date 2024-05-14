@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class country extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'code',
+        'phonecode'
+    ];
+    public function country()
+    {
+        return $this->belongsTo(country::class);
+    }
+
+
+
+
 }

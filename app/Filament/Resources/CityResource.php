@@ -31,9 +31,21 @@ class CityResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                //
-            ]);
+            
+
+        ->schema([ 
+            Forms\Components\select::make('State_id')
+        ->relationship(name: 'state',titleAttribute:'name')
+        ->searchable()
+        ->preload()
+       ->required(),
+      
+               Forms\Components\TextInput::make('name')
+               ->required()
+               ->maxLength(255),
+               ])->columns(3);
+                
+            
     }
 
     public static function table(Table $table): Table

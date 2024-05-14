@@ -29,8 +29,31 @@ class EmployeeResource extends Resource
         'required|max:255';
         return $form
             ->schema([
+              
                 Forms\Components\Section::make('user name')
                  ->description('put the user details name in.')
+
+                 ->schema([ Forms\Components\select::make('country_id')
+                ->relationship(name: 'country',titleAttribute:'name')
+                ->searchable()
+                ->preload()
+               ->required(),
+               Forms\Components\select::make('state_id')
+                ->relationship(name: 'country',titleAttribute:'name')
+                ->searchable()
+                ->preload()
+               ->required(),
+               Forms\Components\select::make('city_id')
+                ->relationship(name: 'country',titleAttribute:'name')
+                ->searchable()
+                ->preload()
+               ->required(),
+               Forms\Components\select::make('Employee_id')
+                ->relationship(name: 'country',titleAttribute:'name')
+                ->searchable()
+                ->preload()
+               ->required(),
+            ])
                  ->schema([ Forms\Components\TextInput::make('first_name')
                 ->required()
                 ->maxLength(255),
