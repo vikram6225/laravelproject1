@@ -4,14 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class employee extends Model
 {
     use HasFactory;
-    protected $guarded = [
-        'name',
-        'state_id'
-    ];
+    protected $guarded = [];
     public function department(): BelongsTo
     {
         return $this->belongsTo(department::class);

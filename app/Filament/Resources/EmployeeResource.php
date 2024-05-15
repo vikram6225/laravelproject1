@@ -9,6 +9,9 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Infolists\Infolist;
+use Filament\Infolists\Components;
+
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -26,12 +29,12 @@ class EmployeeResource extends Resource
 
     public static function form(Form $form): Form
     {
-        'required|max:255';
+       
         return $form
             ->schema([
+                Forms\Components\Section::make('Relationships')
+               
               
-                Forms\Components\Section::make('user name')
-                 ->description('put the user details name in.')
 
                  ->schema([ Forms\Components\select::make('country_id')
                 ->relationship(name: 'country',titleAttribute:'name')
@@ -39,21 +42,25 @@ class EmployeeResource extends Resource
                 ->preload()
                ->required(),
                Forms\Components\select::make('state_id')
-                ->relationship(name: 'country',titleAttribute:'name')
+                ->relationship(name: 'state',titleAttribute:'name')
                 ->searchable()
                 ->preload()
                ->required(),
                Forms\Components\select::make('city_id')
-                ->relationship(name: 'country',titleAttribute:'name')
+                ->relationship(name: 'city',titleAttribute:'name')
                 ->searchable()
                 ->preload()
                ->required(),
-               Forms\Components\select::make('Employee_id')
-                ->relationship(name: 'country',titleAttribute:'name')
+               Forms\Components\select::make('department_id')
+                ->relationship(name: 'department',titleAttribute:'name')
                 ->searchable()
                 ->preload()
                ->required(),
-            ])
+                 ])->columns(2),
+
+               Forms\Components\Section::make('user name')
+                 ->description('put the user details name in.')
+           
                  ->schema([ Forms\Components\TextInput::make('first_name')
                 ->required()
                 ->maxLength(255),
@@ -63,7 +70,7 @@ class EmployeeResource extends Resource
                 Forms\Components\TextInput::make('middle_name')
                 ->required()
                 ->maxLength(255),
-            ])->columns(3),
+            ])->columns(2),
 
             Forms\Components\Section::make('user address')
             ->schema([
@@ -82,12 +89,14 @@ class EmployeeResource extends Resource
                 ->required(),
                
                 Forms\Components\DatePicker::make('date_hired')
-                ->required()
-                ,
+                ->required(),
+             
                 
             ])->columns(2),
-        
             ]);
+           
+
+           
     }
 
     public static function table(Table $table): Table
@@ -108,7 +117,9 @@ class EmployeeResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+
     }
+    
 
     public static function getRelations(): array
     {

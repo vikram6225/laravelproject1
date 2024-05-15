@@ -37,20 +37,19 @@ class CountryResource extends Resource
        return $form
           
                    ->schema([
-                       Forms\Components\select::make('name')
-                           
+                       Forms\Components\TextInput::make('name')
                            ->required()
                            ->maxLength(255), 
-                           Forms\Components\select::make('code')
+                           Forms\Components\TextInput::make('code')
                            ->required()
                            ->maxLength(3), 
-                           Forms\Components\select::make('phonecode') 
+                           Forms\Components\TextInput::make('phonecode') 
                            ->required()
-                           ->maxLength(255)
+                           ->maxLength(5)
                            ->numeric(), 
                          
                           
-                   ])->columns(3);
+                   ]);
       
    }
 
@@ -58,12 +57,30 @@ class CountryResource extends Resource
     {
         return $table
             ->columns([
-                //
+               
+                    Tables\Columns\TextColumn::make('name')
+                        ->searchable()
+                        ->sortable(),
+                    Tables\Columns\TextColumn::make('code')
+                        ->searchable()
+                        ->sortable(),
+                    Tables\Columns\TextColumn::make('phonecode')
+                        ->numeric(),
+                    Tables\Columns\TextColumn::make('created_at')
+                        ->dateTime()
+                        ->sortable()
+                        ->toggleable(isToggledHiddenByDefault: true),
+                    Tables\Columns\TextColumn::make('updated_at')
+                        ->dateTime()
+                        ->sortable()
+                        ->toggleable(isToggledHiddenByDefault: true),
+                    
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -76,7 +93,7 @@ class CountryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+          //
         ];
     }
 

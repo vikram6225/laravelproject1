@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class country extends Model
 {
@@ -13,9 +14,9 @@ class country extends Model
         'code',
         'phonecode'
     ];
-    public function country()
+    public function state():HasMany
     {
-        return $this->belongsTo(country::class);
+        return $this->hasMany(state::class);
     }
 
 
